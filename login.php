@@ -21,11 +21,15 @@ if (isset($_POST['username'])){
         $query = "SELECT * FROM `users` WHERE username='$username'
 and password='".md5($password)."'";
  $result = mysqli_query($con,$query) or die(mysqli_error($con));
+ $row = mysqli_fetch_assoc($result);
  $rows = mysqli_num_rows($result);
         if($rows==1){
-     $_SESSION['username'] = $username;
+              $_SESSION['username'] = $username;
+              $_SESSION["workarea"] = $row["workArea"];
+              $_SESSION['homearea'] = $row['homeArea'];
+              $_SESSION['id'] = $row['user_id'];
             // Redirect user to index.php
-     header("Location: index.php");
+     header("Location: ride.php");
          }else{
  echo "<div class='form'>
 <h3>Username/password is incorrect.</h3>
