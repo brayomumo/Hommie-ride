@@ -1,20 +1,14 @@
-<?php
-//include auth.php file on all secure pages
-include("auth.php");
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Welcome Home</title>
-<link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hommie Ride</title>
 </head>
 <body>
-<div class="form">
-<p>Welcome <?php echo $_SESSION['username']; ?>!</p>
-<p>This is secure area.</p>
-<p><a href="dashboard.php">Dashboard</a></p>
-<a href="logout.php">Logout</a>
-</div>
+    <?php
+        include('navbar.php');
+        ?>
+        <h2> Welcome Sucker </h2>
 </body>
 </html>
