@@ -1,0 +1,59 @@
+@media only screen and (max-width: 500px) {
+    /*shows elements in a column*/
+    ul{
+      flex-direction: column;
+    }
+    
+    /* deletes margin on top or bottom of the a tag*/
+    li{
+      margin: 0;
+    }
+    a{
+      display: block;
+    }
+    button{
+        display: block;
+        
+        padding: 2vw;
+        font-size: 3vh;
+        background-color: #AFE0FF;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        align-self: flex-start;
+      }
+  }
+li {
+    list-style-type: none;
+    margin: 0 2vw;
+    font-size: 2vh;
+}
+
+li a {
+    text-decoration: none;
+    color: black;
+    padding: 0.5vw;
+}
+a:hover{
+    background-color: #C6E9FF;
+  }
+
+nav {
+    width: 100vw;
+    background-color: #D6EFFF;
+    padding: 5px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+body {
+    margin: 0;
+}
+
+button{
+    display: none;
+  }
