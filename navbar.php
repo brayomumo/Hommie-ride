@@ -11,9 +11,9 @@
     <nav>
         <ul>
         <button>✖</button>
-            <li><a href="landing.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="#" >About</a></li>
-            <li><a href="index.php">Ride Along</a></li>
+            <li><a href="dashboard.php">Ride Along</a></li>
             <?php
                 session_start();
                 if(isset($_SESSION['username'])){
@@ -22,7 +22,7 @@
                         echo $_SESSION['username'];
                         ?>
                     </a></li>
-                    <li><a href="logout.php" style="float: right;">logout </a></li>
+                    <li><a href="logout.php" style="float: right !important ;">logout </a></li>
                     <?php
                 }else{
                 ?><li><a href="registration.php" style="float: right">Register</a></li>
