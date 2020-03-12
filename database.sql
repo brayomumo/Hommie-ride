@@ -20,7 +20,7 @@ CREATE TABLE groups(
 CREATE TABLE user_group (
     group_id INT NOT NULL,
     user_id INT NOT NULL,
-
+  
     CONSTRAINT FK_userGroup1 FOREIGN KEY(group_id) REFERENCES groups(group_id),
     CONSTRAINT FK_userGroup2 FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
@@ -47,4 +47,7 @@ CREATE TABLE drivers(
     CONSTRAINT FK_driver1 FOREIGN KEY(driver_licence_number) REFERENCES users(licence_number),
     CONSTRAINT FK_driver2 FOREIGN KEY(trip_id) REFERENCES trips(trip_id)
 );
-GO
+
+
+
+SELECT groups.*  FROM groups LEFT OUTER JOIN user_group ON groups.group_id = user_group.group_id WHERE user_group.user_id = 1;
