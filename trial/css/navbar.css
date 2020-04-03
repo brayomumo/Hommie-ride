@@ -1,0 +1,97 @@
+@media only screen and (max-width: 500px) {
+    /*shows elements in a column*/
+    ul{
+      flex-direction: column;
+    }
+    
+    /* deletes margin on top or bottom of the a tag*/
+    li{
+      margin: 0;
+    }
+    a{
+      display: block;
+    }
+    button{
+        display: block;
+        
+        padding: 2vw;
+        font-size: 3vh;
+        background-color: #AFE0FF;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        align-self: flex-start;
+      }
+  }
+li {
+    list-style-type: none;
+    margin: 0 2vw;
+    font-size: 2vh;
+}
+
+li a {
+    text-decoration: none;
+    color: black;
+    padding: 0.5vw;
+}
+a:hover{
+    background-color: #C6E9FF;
+  }
+
+nav {
+    width: 100vw;
+    background-color: #D6EFFF;
+    padding: 5px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+body {
+    margin: 0;
+    /* size: 70px; */
+}
+
+button{
+    display: none;
+  }
+  body{
+    font-family: Arail, sans-serif;
+}
+/* Formatting search box */
+.search-box{
+    width: 300px;
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+}
+.search-box input[type="text"]{
+    height: 32px;
+    padding: 5px 10px;
+    border: 1px solid #CCCCCC;
+    font-size: 14px;
+}
+.result{
+    position: absolute;        
+    z-index: 999;
+    top: 100%;
+    left: 0;
+}
+.search-box input[type="text"], .result{
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Formatting result items */
+.result p{
+    margin: 0;
+    padding: 7px 10px;
+    border: 1px solid #CCCCCC;
+    border-top: none;
+    cursor: pointer;
+}
+.result p:hover{
+    background: #f2f2f2;
+}

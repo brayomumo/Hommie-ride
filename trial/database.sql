@@ -49,6 +49,20 @@ CREATE TABLE drivers(
 );
 
 
+CREATE TABLE posts(
+    post_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    userID INT,
+    when_posted DATETIME,
+    group_id INT,
+    post VARCHAR(500), 
 
+    CONSTRAINT FK_post1 FOREIGN KEY(userID) REFERENCES users(user_id),
+    CONSTRAINT FK_post2 FOREIGN KEY(group_id) REFERENCES groups(group_id)
+)
 SELECT groups.*  FROM groups LEFT OUTER JOIN user_group ON groups.group_id = user_group.group_id WHERE user_group.user_id = 1;
-SELECT groups.*  FROM groups LEFT OUTER JOIN user_group ON groups.group_id = user_group.group_id WHERE user_group.user_id = 1
+
+CREATE TABLE tirpmembers(
+    group_id INT,
+    user_id INT,
+    trip_id INT
+)

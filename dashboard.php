@@ -22,6 +22,7 @@
 function createG(){
 
 }
+
     function createGroup(){
         
         require('db.php');
@@ -49,7 +50,6 @@ function createG(){
             }else {
     ?>
         <div class="header">
-            <h1>Registration</h1>
         </div>
             <form name="createGroup" action="" method="post">
                 <div class="input-group">
