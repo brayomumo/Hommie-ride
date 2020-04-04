@@ -19,7 +19,6 @@
         <div class="result"></div>
     </div>
             <?php
-                session_start();
                 if(isset($_SESSION['username'])){
                     ?><li style="float: right"><a href="profile.php">
                         <?php

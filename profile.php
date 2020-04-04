@@ -91,7 +91,7 @@ function joinGroup($name){
 <?php
     $user_id = $_SESSION['id'];
     $homearea = $_SESSION['homearea'];
-    $groups = "SELECT groups.*  FROM groups LEFT OUTER JOIN user_group ON groups.group_id = user_group.group_id WHERE user_group.user_id = '$user_id'";
+    $groups = "SELECT groups.*  FROM groups LEFT OUTER JOIN user_group ON groups.group_id = user_group.group_id WHERE user_group.user_id = '3'";
     $joined = mysqli_query($con, $groups) or die(mysqli_error($con));
     if($joined){
         if(mysqli_num_rows($joined) > 0){

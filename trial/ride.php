@@ -1,6 +1,6 @@
 <?php
 //include auth.php file on all secure pages
-// include("auth.php");
+include("auth.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,7 @@
         <p>Welcome <?php echo $_SESSION['username']; ?>!</p>
         <p>This is secure area.</p>
         <p><a href="dashboard.php">Dashboard</a></p>
-        <a href="logout.php">Logout</a>
+        <a href="ujinga.php">try me</a>
     </div>
 </body>
 

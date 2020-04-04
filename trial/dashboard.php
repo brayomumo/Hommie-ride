@@ -1,9 +1,12 @@
+<?php require("auth.php")?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <title>Welcome Home</title>
+    <script
+			  src="js/jquery1.js"></script>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
 </head>
 <style>
@@ -48,6 +51,8 @@
         
 
     }else{
+        showGroups($_SESSION['homearea'], $_SESSION['workarea']);
+        echo"<h3> Or Create one</h3>";
         createGroup();
     }
     
@@ -186,6 +191,43 @@
     <?php
         }
     }
+    function showGroups($homearea, $workarea){
+        require("db.php");
+        echo "<h3>Groups below are either from your work area or Home area<br>Please join one</h3>";
+        $result = mysqli_query($con,"SELECT * FROM groups WHERE neighbourhood = '$homearea' or workArea = '$workarea'");
+        if ($result){
+        echo "
+        <table style='width: 70%; text-align:center;'>
+        <tr>
+            <th>Group name</th>
+            <th>Work Area </th>
+            <th>Neighbourhood</th>
+            <th>Time they leave for work</th>
+            <th>Time they leave for home</th>
+            <th>work from </th>
+            <th>To</th>
+            <th>Action</th>
+        </tr>  ";
+        while($row = mysqli_fetch_array($result))
+                {
+                echo "<tr>
+                <td>" . $row['group_name'] . "</td>
+                <td> " . $row['workArea'] . "</td>
+                <td> " . $row['neighbourhood'] . "</td>
+                <td> " . $row['from_home'] . "</td>
+                <td> " . $row['from_work'] . "</td>
+                <td> " . $row['firstday'] . "</td>
+                <td> " . $row['lastday'] . "</td>
+                <td>
+                <input type='submit'id='". $row['group_id'] ."' onclick='join(this.id)' name='createGroup' value='join'>
+                    <button class='' id='". $row['group_id'] ."' onclick='jaribu(this.id)'>Join</button >
+                </td>
+                
+              </tr>"; //these are the fields that you have stored in your database table employee
+                }
+        echo "</table>";
+        }
+    }
 
     function leaveGroup($g_id)
     {
@@ -211,30 +253,7 @@
         if ($result) {
         }
     }
-    function joinGroup($name)
-    {
-        require('db.php');
-        $query1 = "SELECT * from groups where group_name = '$name'";
-        $res = mysqli_query($con, $query1) or die(mysqli_error($con));
-        $row = mysqli_fetch_assoc($res);
-        if ($res) {
-            $group_id = $row['group_id'];
-            $user_id = $_SESSION['id'];
-            $query = "SELECT COUNT(user_group.user_id)as members from user_group where group_id= $group_id";
-            $resl = mysqli_query($con, $query) or die(mysqli_error($con));
-            $data = mysqli_fetch_assoc($resl);
-            if ($data['members'] < 5) {
-                $join = "INSERT INTO `user_group`(group_id, user_id) VALUES('$group_id','$user_id')";
-                $response = mysqli_query($con, $join) or die(mysqli_error($con));
-                if ($response) {
-                    echo "Joined Group successfully";
-                }
-            } else {
-                echo " Group already Full";
-                createGroup();
-            }
-        }
-    }
+    
     function showposts($g_id){
         require("db.php");
         $query = "SELECT users.username , posts.* FROM posts LEFT OUTER JOIN users on users.user_id = posts.userID where group_id='$g_id'";
@@ -293,6 +312,7 @@
     }
 }
     ?>
+    <script src="js/groups.js"></script>
 </body>
 
 </html>
