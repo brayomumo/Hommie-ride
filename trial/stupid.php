@@ -7,8 +7,21 @@ function getDrivers($g_id){
         while($row = mysqli_fetch_array($query)){
             array_push($drivers,$row['user_id']);
     }
-    return $drivers;
+    return json_encode($drivers) ;
 }
-$drivers = getDrivers(12);
-print_r($drivers);
+function setDrivers($drivers){
+
+}
+if(isset($_POST['g_id']))
+ {
+//    $json = json_decode($_POST['g_id'], true);
+    echo getDrivers($_POST['g_id']);
+ }elseif(isset($_POST['drivers'])){
+    $json = json_decode($_POST['drivers'], true);
+    print_r($json);
+    
+ }
+
+
+
 ?>

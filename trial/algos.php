@@ -9,86 +9,105 @@
 </head>
 
 <body>
+  <div id="days"></div>
 
 
   <script>
-    var users = []
+  function pushDrivers(drivers){
+    $.ajax({
+   type: 'POST',
+   url: 'stupid.php',
+   data: {"drivers": drivers},
+   success: function(msg){
+     console.log(msg)
+     console.log('success');
+   },
+   error: function(msg){
+     console.log('fail', msg);
+   }
+ });
+  }
+  
     function getUsers() {
-
+      var g_id = 12; //Get From user's Displayed Group
       $.ajax({
         url: 'stupid.php',
-        type: 'GET',
-        dataType: "html",
+        type: 'POST',
+        data: {"g_id":g_id},
         success: function(response) {
-          users = response;
-          
-          //   window.location.href = "dashboard.php";
-          // console.log(response);
+          var getarray = jQuery.parseJSON(response)
+          var dr = alocateDrivers(getarray, 21, 4, 2020)
+          pushDrivers(dr)
+          // document.getElementById("days").innerHTML = dr;
+
         }
       });
     }
-    // getting dates iin amonth
-    function getDaysInMonth(users,date,month, year) {
-    var date = new Date(year, month+1, date+1);
-    var days = [];
-    var count = 0
-    while (date.getMonth() === month+1 && count < users.length) {
-      days.push(new Date(date));
-      if(date.getDay() == "Sunday" || date.getDay() == "Saturday"){
-        continue;
-      }else{
-      date.setDate(date.getDate() + 1);
-      count +=1
-      }
-    }
-    var workdays = []
-    for(var i=0;i<days.length;i++){
-        var D = days[i].getDate();
-        workdays.push(D)    
-    }
-    return workdays;
-  }
 
-function alocateDrivers(userIDS, lastdate, month,year){
-    var days = getDaysInMonth(userIDS,lastdate, month, year);
-    // document.getElementById("days").innerHTML = days;
-    var drivers = {};
-    for(var i=0;i<userIDS.length;i++){
-        drivers[days[i]] = userIDS[i];
+    function getday(n) {
+      var day
+      if (n == 0) {
+        day = "Sunday";
+      } else if (n == 1) {
+        day = "Monday";
+      } else if (n == 2) {
+        day = "Tuesday";
+      } else if (n == 3) {
+        day = "Wednesday";
+      } else if (n == 4) {
+        day = "Thursday";
+      } else if (n == 5) {
+        day = "Friday";
+      } else if (n == 6) {
+        day = "Saturday";
+      }
+      return day
     }
-    return drivers
-}
-    var userIDS = [10, 12, 19, 28, 34, 45]
+    // getting work dates in amonth
+    function getworkdays(users, date, month, year) {
+      var date = new Date(year, month - 1, date + 1);
+      var days = [];
+      var count = 0
+      while (count < users.length) {
+        
+        var k = date.getDay();
+        if (k == 0 || k == 6) {
+          date.setDate(date.getDate() + 1);
+          continue
+        } else {
+          days.push(new Date(date));
+          date.setDate(date.getDate() + 1);
+          count += 1
+        }
+
+      }
+
+      var workdays = []
+      for (var i = 0; i < days.length; i++) {
+        var obj = {}
+        obj["day"] = getday(days[i].getDay())
+        obj["date"] = days[i].getDate()         
+        obj["month"] = days[i].getMonth()
+        obj["year"] = days[i].getFullYear()
+        workdays.push(obj)
+      }
+      
+      return workdays;
+    }
+
+    function alocateDrivers(userIDS, lastdate, month, year) {
+      var days = getworkdays(userIDS, lastdate, month, year);
+      // document.getElementById("days").innerHTML = days;
+      
+      var drivers = {};
+      for (var i = 0; i < userIDS.length; i++) {
+        days[i]["driverID"] =userIDS[i]        
+      }
+      console.log(days)
+      return JSON.stringify(days)
+    }
+
     getUsers()
-    alert(users)
-    console.log(alocateDrivers(users,21,4,2020))
-
-
-
-
-    // 
-    function getDaysInMonth(users,date,month, year) {
-    var date = new Date(year, month+1, date+1);
-    var days = [];
-    var count = 0
-    while (date.getMonth() === month+1 && count < users.length) {
-      days.push(new Date(date));
-      if(date.getDay() == 0 || date.getDay() == 6){
-        continue;
-      }else{
-      date.setDate(date.getDate() + 1);
-      count +=1
-      }
-    }
-    var workdays = []
-    for(var i=0;i<days.length;i++){
-        var D = days[i].getDate();
-        workdays.push(D)    
-    }
-    return workdays;
-  }
-  var userIDS = [10,12,19,28,34,45]
-  console.log(getDaysInMonth(userIDS,1,4,2020))
   </script>
 </body>
 
