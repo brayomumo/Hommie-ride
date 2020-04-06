@@ -60,9 +60,39 @@ CREATE TABLE posts(
     CONSTRAINT FK_post2 FOREIGN KEY(group_id) REFERENCES groups(group_id)
 )
 SELECT groups.*  FROM groups LEFT OUTER JOIN user_group ON groups.group_id = user_group.group_id WHERE user_group.user_id = 1;
+-- user details
+SELECT users.username,users.cartype, users.car_plate_number from users LEFT JOIN user_group ON user_group.user_id = users.user_id WHERE users.user_id = 22
 
 CREATE TABLE tirpmembers(
     group_id INT,
     user_id INT,
     trip_id INT
+)
+
+-- save trip details ... tripid date driverid destination groupid origin  seat_available  departure_time
+-- passengers ----trip_id user_id
+-- 
+CREATE TABLE trips(
+    trip_id INT PRIMARY KEY  NOT NULL AUTO_CORRECT,
+    Tdate DATETIME,
+    driver_id INT NOT NULL,
+    group_id INT NOT NULL,   
+    destination VARCHAR(100),
+    origin VARCHAR(100),
+    seats_available INT NOT NULL,
+    departure_time DATETIME,
+    CONSTRAINT FK_trips1 FOREIGN KEY(driver_id) REFERENCES users(user_id),
+    CONSTRAINT FK_trips2 FOREIGN KEY(group_id) REFERENCES groups(group_id)
+)
+CREATE TABLE ridealongs(
+    trip_id INT NOT  NULL,
+    user_id INT NOT NULL,
+    CONSTRAINT ridealong_FK1 FOREIGN KEY(trip_id) REFERENCES trips(trip_id),
+    CONSTRAINT ridealong_FK2 FOREIGN KEY(user_id) REFERENCES user_group(user_id)
+)
+CREATE TABLE group_trip(
+    trip_id INT NOT NULL,
+    group_id INT NOT NULL,
+    CONSTRAINT gt_FK1 FOREIGN KEY(trip_id) REFERENCES trips(trip_id),
+    CONSTRAINT gt_FK2 FOREIGN KEY(group_id) REFERENCES groups(group_id)
 )

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="css/navbar.css" rel="stylesheet" >
-    <script src="js/jquery-3.3.1.min.js" type="text/js"></script>
+    <script src="js/jquery.js" type="text/js"></script>
 </head>
 <body>
     <nav>
@@ -13,7 +13,7 @@
         <button>✖</button>
             <li><a href="index.php">Home</a></li>
             <li><a href="ride.php" >About</a></li>
-            <li><a href="dashboard.php">Ride Along</a></li>
+            <li><a href="trips.php">Ride Along</a></li>
             <div class="search-box">
         <input type="text" autocomplete="off" placeholder="Search groups..." />
         <div class="result"></div>

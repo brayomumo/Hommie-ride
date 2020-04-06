@@ -35,7 +35,8 @@
         type: 'POST',
         data: {"g_id":g_id},
         success: function(response) {
-          var getarray = jQuery.parseJSON(response)
+          console.log(response)
+          var getarray = $.parseJSON(response)
           var dr = alocateDrivers(getarray, 21, 4, 2020)
           pushDrivers(dr)
           // document.getElementById("days").innerHTML = dr;
@@ -85,10 +86,9 @@
       var workdays = []
       for (var i = 0; i < days.length; i++) {
         var obj = {}
+        var date =days[i].getFullYear()+"/"+days[i].getMonth()+"/"+ days[i].getDate()
         obj["day"] = getday(days[i].getDay())
-        obj["date"] = days[i].getDate()         
-        obj["month"] = days[i].getMonth()
-        obj["year"] = days[i].getFullYear()
+        obj["date"] = date       
         workdays.push(obj)
       }
       
