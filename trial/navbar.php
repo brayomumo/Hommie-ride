@@ -17,10 +17,13 @@
             <div class="search-box">
         <input type="text" autocomplete="off" placeholder="Search groups..." />
         <div class="result"></div>
+        
     </div>
             <?php
                 if(isset($_SESSION['username'])){
-                    ?><li style="float: right"><a href="profile.php">
+                    ?>
+                    <li><a href="dashboard.php">groups</a></li>
+                    <li style="float: right"><a href="profile.php">
                         <?php
                         echo $_SESSION['username'];
                         ?>
@@ -33,6 +36,7 @@
                 <?php
                 }
             ?>
+            
             <!-- <li><a href="login.php">Log in</a></li> -->
         </ul>
     </nav>

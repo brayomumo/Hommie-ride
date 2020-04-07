@@ -62,6 +62,7 @@ CREATE TABLE posts(
 SELECT groups.*  FROM groups LEFT OUTER JOIN user_group ON groups.group_id = user_group.group_id WHERE user_group.user_id = 1;
 -- user details
 SELECT users.username,users.cartype, users.car_plate_number from users LEFT JOIN user_group ON user_group.user_id = users.user_id WHERE users.user_id = 22
+SELECT users.username, users.company FROM users LEFT JOIN ridealongs ON ridealongs.user_id = users.user_id WHERE rideAlongs.trip_id = 30
 
 CREATE TABLE tirpmembers(
     group_id INT,
