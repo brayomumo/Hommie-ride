@@ -9,4 +9,4 @@ var tria = "< div class='card'>\
 tria+= "<h4>username</h4>\
             <h6>post</h6>\
             <p>when_Posted</p>"
-tria +="</div></div>"
+tria +="</div></div>"   

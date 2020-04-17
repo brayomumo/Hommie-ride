@@ -254,59 +254,6 @@
         }
     }
 
-    function leaveGroup($g_id)
-    {
-        require('db.php');
-        $user_id = $_SESSION['id'];
-        $query = "DELETE FROM user_group where group_id='$g_id'and user_id = '$user_id'";
-        $result = mysqli_query($con, $query) or die(mysqli_error($con));
-        if ($result) {
-            echo "left group Successfully";
-        } else {
-            echo "Error leaving group . Please try again";
-        }
-    }
-
-    function chooseDriver($g_id)
-    {
-        // Get all users in the group 
-        // Get the days when the group is active ---work days 
-        // allocate each member to a workday and save in db
-        require('db.php');
-        $query = "SELECT * FROM user_group WHERE group_id = '$g_id'";
-        $result = mysqli_query($con, $query) or die(mysqli_error($con));
-        if ($result) {
-        }
-    }
-
-    function showposts($g_id)
-    {
-        require("db.php");
-        $query = "SELECT users.username , posts.* FROM posts LEFT OUTER JOIN users on users.user_id = posts.userID where group_id='$g_id'";
-        $posts = mysqli_query($con, $query) or die(mysqli_error($con));
-        if ($posts) {
-            if (mysqli_num_rows($posts) > 0) {
-                echo '
-                    <div class="news">
-                    ';
-                while ($row = mysqli_fetch_array($posts)) {
-                    echo '<div class="card">
-                    <div class="container">
-                        <h4>' . $row['username'] . '</h4>
-                        <h6>' . $row['post'] . '</h6> 
-                        <p>' . $row['when_posted'] . ' </p>
-                    </div>
-                </div>';
-                }
-                echo " </div><br>";
-                mysqli_free_result($posts);
-            } else {
-                echo 'No group news currently';
-                createPost($g_id);
-            }
-        }
-    }
-
     ?>
 
     <script src="js/groups.js"></script>

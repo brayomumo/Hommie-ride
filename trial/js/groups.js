@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  var objDiv = document.getElementsByClassName("news");
+objDiv.scrollTop = objDiv.scrollHeight;
   getPosts()
 })
 function join(g_id){  
@@ -25,7 +27,7 @@ function join(g_id){
         data: { "post": pst },
         success: function(data){
           $("#post_form")[0].reset()
-          console.log(data)
+          getPosts()
         }
     })
   }
@@ -47,9 +49,11 @@ function join(g_id){
         var allposts = "";        
         /* from result create a string of data and append to the div */
         $.each(result, function (key, value) {
-          allposts += "<div class='card'><div class='container'><h4>" + value['username'] + "</h4> <h6>" + value['post'] + "</h6> <p>"+ value['when_Posted']+"</p> </div></div>"
+          allposts += "<div class='card'><div class='container'><h4>" + value['username'] + "</h4> <h6>" + value['post'] + "</h6> <p>"+ value['whenPosted']+"</p> </div></div>"
         });
         $(".transition").html(allposts);
+        var objDiv = document.getElementsByClassName("news");
+        objDiv.scrollTop = objDiv.scrollHeight;
 
     });
 

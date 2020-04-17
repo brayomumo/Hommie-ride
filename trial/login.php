@@ -28,6 +28,14 @@ and password='" . md5($password) . "'";
               if ($rows == 1) {
                      $_SESSION['username'] = $username;
                      $_SESSION["workarea"] = $row["workArea"];
+                     $_SESSION["firstname"] = $row["first_name"];
+                     $_SESSION["lastname"] = $row["last_name"];
+                     $_SESSION["phonenumber"] = $row["phone_number "];
+                     $_SESSION["email"] = $row["email"];
+                     $_SESSION["licencenumber"] = $row["licence_number"];
+                     $_SESSION["placeofwork"] = $row["place_of_work"];
+                     $_SESSION["cartype"] = $row["cartype"];
+                     $_SESSION["carplatenumber"] = $row['car_plate_number'];
                      $_SESSION['homearea'] = $row['homeArea'];
                      $_SESSION['id'] = $row['user_id'];
                      // Redirect user to index.php
