@@ -69,6 +69,9 @@ function showposts($g_id)
             return json_encode($allposts);
         }
     }
+    function getGroupDetails($g_id){
+        
+    }
 // choosing functions
 if (isset($_POST['g_id'])) {
     echo joinGroup($_POST['g_id']);

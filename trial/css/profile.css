@@ -3,8 +3,9 @@ body {
   }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-auto-rows: minmax(10px, auto);
+    margin-left: 50px;
 }
 .grid-item1 {
     grid-column: 1 / 3;
@@ -20,8 +21,17 @@ body {
     max-width: 960px;
     padding-right: 10px;
     padding-left:  10px;
+    background-color: black;
 }
-
+header{
+  /* background-color: beige; */
+  height: 50px;
+  width: auto;
+  padding: 10px;
+  vertical-align:middle;
+  display: table-cell;
+  color:#092d47;
+}
   .column.content{
       width: 75%;
       float: right;
@@ -36,9 +46,77 @@ body {
     display: table;
     clear: both;
   }
-  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other on smaller screens (600px wide or less) */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-  }
+
+.myPopup{
+  position: absolute;
+  margin-left: 500px;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
 }
+.myPopup:target{
+  opacity: 1;
+}
+.myPopup > div{
+  width: 700px;
+  position: relative;
+  margin: 10% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  background: #71a6fc;
+  background: -mox linear-gradient(#71a6fc,#fff);
+  background: -webkit-linear-gradient(#71a6fc, #999);
+}
+.close{
+  background: #606061;
+  color: #FFFFFF;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 24px;
+  text-decoration: none;
+  -webkit-border-radius: 12px;
+  -moz-box-shadow: 1px, 1px, 3px, #000;
+}
+.close:hover{
+  background: #00d9ff;
+}
+
+/* form, .content {
+	width: 40%;
+	/* margin: 0px auto; */
+	/* border: 1px solid #B0C4DE; */
+	/* border-radius: 0px 0px 10px 10px; */
+} */
+.input-group label {
+	display: block;
+	text-align: left;
+	margin: 3px;
+}
+.input-group input {
+	height: 30px;
+	width: 90%;
+  font-size: 16px;
+	/* border-radius: 5px; */
+	/* border: 1px solid gray; */
+}
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other on smaller screens (600px wide or less) */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+  }

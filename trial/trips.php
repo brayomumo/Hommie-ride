@@ -15,15 +15,19 @@
             float: left;
             width: 50%;
         }
+
         .one {
             background-color: bisque;
         }
-        .two{
-            background-color:aqua
+
+        .two {
+            background-color: aqua
         }
-        .joinTrip{
+
+        .joinTrip {
             margin-left: 50%
         }
+
         /* Clear floats after the columns */
         .row:after {
             content: "";
@@ -31,23 +35,21 @@
             clear: both;
         }
     </style>
-
     <?php
     include("navbar.php");
     require("db.php");
     $id = $_SESSION['id'];
-            $tri = mysqli_query($con, "SELECT group_id FROM  user_group where user_id = '$id'");
-            $tr = mysqli_fetch_assoc($tri);
-            if ($tri) {
-                $g_id = $tr["group_id"];
-            }
+    $tri = mysqli_query($con, "SELECT group_id FROM  user_group where user_id = '$id'");
+    $tr = mysqli_fetch_assoc($tri);
+    if ($tri) {
+        $g_id = $tr["group_id"];
+    }
     ?>
-   
     <div class="row">
         <div class="column two">
             <h3>Today's trip</h3>
-            <div id="transition" value="<?php echo($g_id);?>"></div>
-            <?php 
+            <div id="transition" value="<?php echo ($g_id); ?>"></div>
+            <?php
             require("db.php");
             // DISPLAYING TODAYS TRIP DETAILS
             date_default_timezone_set('Africa/Nairobi');
@@ -58,25 +60,15 @@
             if ($t_id) {
                 $tr_id = $t_id["trip_id"];
                 $e = "SELECT users.username, users.place_of_work FROM users LEFT JOIN ridealongs ON ridealongs.user_id = users.user_id WHERE ridealongs.trip_id = '$tr_id'";
-            }else{
-                echo" No trips today";
+            } else {
+                echo " No trips today";
             } ?>
-            <input type='button' id='<?php echo($tr_id) ?>' class='joinTrip' onclick='joinTrip(this.id)' value='join Trip'>
+            <input type='button' id='<?php echo ($tr_id) ?>' class='joinTrip' onclick='joinTrip(this.id)' value='join Trip'>
         </div>
-        <div class="column one"> <?php coming(); ?></div>
+        <div class="column one"> <h3> Oncoming Trips</h3><br><?php coming(); ?></div>
     </div>
-    <div class="todayTrip">
-
-    </div>
-        <h3>Oncoming Trips</h3>
-    
-    <div class="todaytrip">
         <?php
-        function leos($g_id)
-        {
-            
-        }
-        function coming()
+        function coming()//returns oncoming trips
         {
             require("db.php");
             $user_id = $_SESSION['id'];
@@ -87,15 +79,7 @@
                 $trips = mysqli_query($con, "SELECT trips.* FROM trips where group_id = '$g_id'");
                 if ($trips) {
                     // displaying oncoming Trips
-                    echo "
-        <table style='width: 50%; text-align:center;'>
-        <tr>
-            <th>Day</th>
-            <th>Driver </th>
-            <th>Car type</th>
-            <th>Car Plate Number</th>
-            <th>Seats Available</th>
-        </tr>  ";
+                    echo "<table style='width: 50%; text-align:center;'> <tr><th>Day</th><th>Driver </th><th>Car type</th><th>Car Plate Number</th><th>Seats Available</th></tr>  ";
                     while ($trip = mysqli_fetch_array($trips)) {
                         $driver_id = $trip["driver_id"];
                         $day = $trip["day"];
@@ -119,9 +103,8 @@
             }
         }
         ?>
-    </div>
     <script src="js/trips.js">
-        
+
     </script>
 </body>
 

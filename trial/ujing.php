@@ -1,4 +1,4 @@
-<?php require("auth.php"); ?>
+<!-- <?php  ?>
 <html>
 
 <head>
@@ -75,7 +75,7 @@
                 <label>Post</label><br>
                 <input type="text" name="post" id="news" placeholder="Type here ...." required><br>
                 <button onclick="sukuma()" >Post</button>
-                <!-- <input type="submit" onclick="sukuma()" name="postNews" value="Post"> -->
+                <input type="submit" onclick="sukuma()" name="postNews" value="Post">
             </div>
         </form>
     </div>
@@ -99,4 +99,32 @@
     </script>
 </body>
 
-</html>
+</html> -->
+<?php
+    function deleteAccount($id){
+        include("db.php");
+        // delete group
+        $query = "DELETE FROM  user_group where user_id = '$id'";
+        $q = mysqli_query($con,$query) or die(mysqli_error($con));
+        if($q){
+            $query = "DELETE FROM  trips where driver_id = '$id'";
+            $q = mysqli_query($con,$query) or die(mysqli_error($con));
+            if($q){
+                $query = "DELETE FROM  ridealongs where user_id = '$id'";
+                $q = mysqli_query($con,$query) or die(mysqli_error($con));
+                if($q){
+                    $query = "DELETE FROM  users where user_id = '$id'";
+                    $q = mysqli_query($con,$query) or die(mysqli_error($con));
+                    if($q){
+                        return "Account deleted successfully";
+                    }
+                }
+            }
+        }
+        // delete trip
+        // delete user
+        
+        
+    }
+    echo (deleteAccount(22));
+?>

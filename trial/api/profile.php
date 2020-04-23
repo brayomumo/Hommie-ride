@@ -20,6 +20,28 @@ function getDetails($id){
     }
     return json_encode($obj);
 }
+function deleteAccount($id){
+    include("../db.php");
+    $query = "DELETE FROM  users where user_id = '$id'";
+    $q = mysqli_query($con,$query) or die(mysqli_error($con));
+    if($q){
+        return "Account deleted successfully";
+    }
+}
+function updateAccount($id, $details){
+    $username = $details["username"];
+    $firstname = $details["firstname"];
+    $lastname = $details["lastname"];
+    $email = $details["email"];
+    $phonenumber = $details["phonenumber"];
+    $licencenumber = $details["licencenumber"];
+    $placeofwork = $details["placeofwork"];
+    $workarea = $details["workarea"];
+    $homearea = $details["homearea"];
+    $carplatenumber = $details["carplatenumber"];
+    $cartype = $details["cartype"];
+
+}
 
 if(isset($_POST["user_id"])){
     echo (getDetails($_POST["user_id"]));
