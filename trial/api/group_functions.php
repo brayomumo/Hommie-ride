@@ -6,7 +6,6 @@ function joinGroup($id)
     require('../db.php');
     $query1 = "SELECT * from groups where group_id = '$id'";
     $res = mysqli_query($con, $query1) or die(mysqli_error($con));
-    echo "queried";
     $row = mysqli_fetch_assoc($res);
     if ($res) {
         $group_id = $row['group_id'];
@@ -88,12 +87,25 @@ function getGroupDetails($g_id)
             mysqli_free_result($query);
             return json_encode($details);
     }
+};
+
+function leveGroup($user_id){
+    require('../db.php');
+    $Q = "DELETE FROM user_group WHERE user_id = '$user_id'";
+    $qw = mysqli_query($con, $Q) or die (mysqli_error($con));
+    if($qw){
+        return "You are no longer a member of the group";
+    }
 }
 // choosing functions
 if (isset($_POST['g_id'])) {
     echo joinGroup($_POST['g_id']);
 } elseif (isset($_POST["post"])) {
     echo (createPost($_POST["post"]));
-} elseif (isset($_POST['getID'])) {
-    print_r(showposts($_POST['getID']));
+} elseif (isset($_POST['getPostID'])) {
+    print_r(showposts($_POST['getPostID']));
+}elseif(isset($_POST["getDetailsID"])){
+    print_r(getGroupDetails($_POST["getDetailsID"]));
+}elseif(isset($_POST["user_id"])){
+    echo(leveGroup($_POST["user_id"]));
 }

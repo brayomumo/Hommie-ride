@@ -1,0 +1,41 @@
+.column {
+    float: left;
+    width: 50%;
+}
+.joinTrip {
+    margin-left: 50%
+}
+
+
+.container {
+    padding: 2px 16px;
+}
+
+.news {
+    width: inherit;
+    height: 400px;
+    overflow: auto;
+    text-align: justify;
+}
+td{
+    padding: 10px;
+}
+.groupDetails{
+    padding: 35px;
+}
+.archive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-gap: 1em;
+  }
+  
+  .article {
+    padding: 1em;
+    background: #fff;
+    box-shadow:
+      0 5px 10px rgba(0, 0, 0, 0.1),
+      0 20px 20px rgba(0, 0, 0, 0.05);
+  }
+  .wrapper{
+      margin-top: 70px;
+  }
