@@ -95,3 +95,33 @@ button{
 .result p:hover{
     background: #f2f2f2;
 }
+@media (min-height: 300px) {
+    nav ul {
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  nav select {
+      display:none;  
+    }
+  
+  @media screen and (max-width: 44em) {
+    nav
+      ul {
+        display: none;
+      }
+  
+     nav select {
+        display: block;
+        width: 100%;
+      }
+  
+      nav:after {
+        position: absolute;
+        content: "Menu";
+        right: 0;
+        bottom: -1em;
+      }
+    }
+  

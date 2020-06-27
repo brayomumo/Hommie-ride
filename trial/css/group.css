@@ -39,3 +39,35 @@ td{
   .wrapper{
       margin-top: 70px;
   }
+
+  .image { 
+    position: relative; 
+    /* width: 1500px; */
+    /* height: 1000px; */
+    padding-left: 10px;
+ }
+ .image img{
+     width: 100%;
+     object-fit: cover;
+     height: auto;
+     opacity: 0.5;
+ }
+ .image h2 { 
+    position: absolute; 
+    top: 0; 
+    padding-top:13.5%;  
+    left: 0; 
+    width: 100%;
+    color: black;
+    text-align: center; 
+    font-size:5vw;
+ }
+ #about{
+text-align: center;
+ }
+
+ @media (min-width: 1200px) {
+    .image h2{
+      font-size:60px;
+    }
+  }
