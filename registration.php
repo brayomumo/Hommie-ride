@@ -21,16 +21,36 @@
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($con, $password);
         $LicenceNumber = stripslashes($_REQUEST['LicenceNumber']);
+        $LicenceNumber = mysqli_real_escape_string($con, $LicenceNumber);
+
         $firstname = stripslashes($_REQUEST['firstname']);
+        $firstname = mysqli_real_escape_string($con, $firstname);
+
         $lastname = stripslashes($_REQUEST['lastname']);
+        $lastname = mysqli_real_escape_string($con, $lastname);
+
+        $phone = stripslashes($_REQUEST['phone']);
+       $phone = mysqli_real_escape_string($con,$phone);
+
+       $place = stripslashes($_REQUEST['place']);
+       $place = mysqli_real_escape_string($con, $place);
+
         $workArea = stripslashes($_REQUEST['workArea']);
+       $workArea = mysqli_real_escape_string($con,$workArea);
+
         $homeArea = stripslashes($_REQUEST['homeArea']);
+        $homeArea = mysqli_real_escape_string($con, $homeArea);
+
         $carType = stripslashes($_REQUEST['carType']);
+        $carType = mysqli_real_escape_string($con, $carType);
+
         $plateNumber = stripslashes($_REQUEST['plateNumber']);
+        $plateNumber = mysqli_real_escape_string($con, $plateNumber);
+
         //  $trn_date = date("Y-m-d H:i:s");
-        $query = "INSERT into `users` (username,first_name, last_name, licence_number, email,  password, workArea,homeArea, carType, car_plate_number)
-VALUES ('$username', '$firstname',' $lastname', '$LicenceNumber','$email', '" . md5($password) . "', '$workArea', '$homeArea', '$carType', ' $plateNumber')";
-        $result = mysqli_query($con, $query);
+        $query = "INSERT into `users` (username,first_name, last_name, licence_number, email,  password, place_of_work,  workArea,homeArea, phone_number, carType, car_plate_number)
+VALUES ('$username', '$firstname',' $lastname', '$LicenceNumber','$email', '" . md5($password) . "', '$place', '$workArea', '$homeArea','$phone', '$carType', ' $plateNumber')";
+        $result = mysqli_query($con, $query) or die(mysqli_error($con));
         if ($result) {
             echo "<div class='form'>
 <h3>You are registered successfully.</h3>
@@ -65,6 +85,14 @@ VALUES ('$username', '$firstname',' $lastname', '$LicenceNumber','$email', '" . 
                 <div class="input-group">
                     <label >Last Name</label><br>
                     <input type="text" name="lastname" placeholder="last name" required />
+                </div>
+                <div class="input-group">
+                    <label >Phone number</label><br>
+                    <input type="tel" name="phone" placeholder="phone number" required />
+                </div>
+                <div class="input-group">
+                    <label >Company/Institution</label><br>
+                    <input type="text" name="place" placeholder="company/institution" required />
                 </div>
                 <div class="input-group">
                     <label >Work Area</label><br>

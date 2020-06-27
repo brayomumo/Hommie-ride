@@ -1,27 +1,25 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/group.css" type="text/css">
     <title>Hommie Ride</title>
 </head>
 <body>
-    <?php
-        include('navbar.php');
-        ?>
-        <h2> Welcome Sucker </h2>
-        <form action="" method="POST">
-            <input type="radio" name="radio" value="radio 1">Radio 1
-            <input type="radio" name="radio" value="radio 1">Radio 2
-            <input type="radio" name="radio" value="radio 1">Radio 3
-            <input type="submit" name="submit" value="Get selected item">
-        </form>
-        <?php
-            if(isset($_POST['submit'])){
-                if(isset($_POST['radio'])){
-                    echo "You have selected:  ".$_POST['radio'];
-                }
-            }
-        ?>
+    <?php include("navbar.php") ?>
+    
+    <div class="image">
+        <img src="images/rider.jpg"  sizes="(min-width: 40em) 80vw, 100vw"
+            srcset="images/rider.jpg 375w,images/rider.jpg 1500w" alt="rideSaring">
+        <h2><span>Hommie Ride </span></h2>
+    </div>
+    
+    <section id="about">
+        <h3>About section</h3>
+        <div>&nbsp;</div>
+    </section>
+
 </body>
 </html>

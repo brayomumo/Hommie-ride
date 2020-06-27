@@ -19,7 +19,7 @@ a:hover{
      width: 300px;
      margin: 0 auto;
 }
-input[type='text'], input[type='email'],
+.time, input[type='text'], input[type='email'],
 input[type='password'] {
      width: 200px;
      border-radius: 2px;
