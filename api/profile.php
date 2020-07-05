@@ -1,4 +1,5 @@
 <?php
+require('../auth.php');
 function getDetails($id){
     include("../db.php");
     $query = "SELECT * FROM users WHERE user_id='$id'";
@@ -42,8 +43,34 @@ function updateAccount($id, $details){
     $cartype = $details["cartype"];
 
 }
-
+function updateHome($homearea){
+    include('../db.php');
+    $userid = $_SESSION['id'];
+    $query = "UPDATE users SET homeArea= '$homearea'  WHERE user_id='$userid'";
+    $q = mysqli_query($con, $query) or die(mysqli_error($con));
+    if ($q){
+        return " update successfully ";
+    }else{
+        return "Error in updating";
+    }
+}
+function updateWork($workplace, $company){
+    include('../db.php');
+    $userid = $_SESSION['id'];
+    $query = "UPDATE users SET workArea= '$workplace', place_of_work='$company'  WHERE user_id='$userid'";
+    $q = mysqli_query($con, $query) or die(mysqli_error($con));
+    if ($q){
+        return " update successfully ";
+    }else{
+        return "Error in updating";
+    }
+}
 if(isset($_POST["user_id"])){
     echo (getDetails($_POST["user_id"]));
+}else if (isset($_POST["newHomeArea"])){
+    print_r(updateHome($_POST["newHomeArea"]));
+}
+else if(isset($_POST['newWorkArea'])){
+    print_r(updateWork($_POST['newWorkArea'], $_POST['newCompany']));
 }
 ?>
