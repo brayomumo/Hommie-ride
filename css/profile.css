@@ -7,11 +7,12 @@ header{
   vertical-align:middle;
   display: table-cell;
   color:#092d47;
+  text-align: center;
 }
 
 .myPopup{
   position: absolute;
-  margin-left: 500px;
+  margin-left: 100px;
   opacity: 0;
   -webkit-transition: opacity 400ms ease-in;
   -moz-transition: opacity 400ms ease-in;
@@ -23,12 +24,15 @@ header{
 .myPopup > div{
   width: 700px;
   position: relative;
-  margin: 10% auto;
+ y
   padding: 5px 20px 13px 20px;
   border-radius: 10px;
   background: #71a6fc;
   background: -mox linear-gradient(#71a6fc,#fff);
   background: -webkit-linear-gradient(#71a6fc, #999);
+}
+.myPopup > div .work{
+  text-align: center;
 }
 .close{
   background: #606061;
@@ -58,3 +62,6 @@ header{
 	/* border-radius: 5px; */
 	/* border: 1px solid gray; */
 } 
+.center{
+  text-align: center;
+}
