@@ -69,3 +69,45 @@ function submitform()
 {
     console.log(document.forms["updateProfile"].submit());
 }
+function updateHome(){
+    var homeArea = document.getElementById("homearea1").value;
+    homeArea = homeArea.charAt(0).toUpperCase() + homeArea.slice(1);
+    var x = document.getElementById("homePopup");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "api/profile.php",
+            data: { "newHomeArea": homeArea },
+            success: function(response){
+                getDetails()
+                alert(response)
+            }
+        })
+      x.style.display = "none";
+    }
+    // alert(workarea)
+}
+function updatework(){
+    var workplace = document.getElementById("workplace1").value;
+    var company = document.getElementById("company1").value;
+    workplace = workplace.charAt(0).toUpperCase() + workplace.slice(1);
+    company = company.charAt(0).toUpperCase() + company.slice(1);
+    var x = document.getElementById("workPopup");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "api/profile.php",
+            data: { "newWorkArea": workplace, "newCompany":company },
+            success: function(response){
+                getDetails()
+                alert(response)
+            }
+        })
+      x.style.display = "none";
+    }
+    // alert(workarea)
+}
