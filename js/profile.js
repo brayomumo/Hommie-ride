@@ -2,10 +2,8 @@ $("document").ready(function(){
     // alert ("ready")
     getDetails()
 })
-// get user id 
-// pass to php
-// get results
-// display
+let carType = " "
+let carplatenumber = " "
 
 function getDetails(){
     var user_id = $(".user_id").attr("id");
@@ -21,6 +19,7 @@ function getDetails(){
     var car = "";   
     var name = "";  
     /* from result create a string of data and append to the div */
+    carplatenumber =  value['carplatenumber']
       name += "<h2 class='name ' ><img src='images/user.png'>  &nbsp " + value['username'] + "'s   Profile </h2> " 
       personal += "<div class='archive'> \
             <h4 class='article'> <b> First Name:</b>  " + value['firstname'] + "</h4> \
@@ -45,29 +44,6 @@ function getDetails(){
         $("#work").html(work)
         $("#car").html(car) 
     });
-}
-function updateProfile(){
-  var user_id = $(".user_id").attr("id");
-  var username = document.getElementById("username").value;
-  var firstname = document.getElementById("firstname").value;
-  var lastname = document.getElementById("lastname").value;
-  var email = document.getElementById("email").value;
-  var phonenumber = document.getElementById("phonenumber").value;
-  var licencenumber = document.getElementById("licencenumber").value;
-  var placeofwork = document.getElementById("placeofwork").value;
-  var workarea = document.getElementById("workarea").value;
-  var homearea = document.getElementById("homearea").value;
-  var carplatenumber = document.getElementById("carplatenumber").value;
-  var cartype = document.getElementById("cartype").value;
-  var user = [user_id,username,firstname,lastname,email,phonenumber,licencenumber,placeofwork,workarea,homearea,carplatenumber,cartype]
-  console.log(user)
-}
-function valLicence(licencenumber){
-  
-}
-function submitform()
-{
-    console.log(document.forms["updateProfile"].submit());
 }
 function updateHome(){
     var homeArea = document.getElementById("homearea1").value;
@@ -110,4 +86,53 @@ function updatework(){
       x.style.display = "none";
     }
     // alert(workarea)
+}
+function updatePersonalDetails(){
+    var username = document.getElementById("username").value;
+    var email = document.getElementById("email").value;
+    var phoneNumber = parseInt(document.getElementById("phoneNumber").value);
+    if(phoneNumber.toString().length != 9){
+       return  alert("Enter correct Phone Number ")
+    }
+    var x = document.getElementById("personalPopup");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "api/profile.php",
+            data: { "newUsername": username, "newEmail":email, "newPhoneNumber": phoneNumber },
+            success: function(response){
+                getDetails()
+                alert(response)
+            }
+        })
+      x.style.display = "none";
+    }
+}
+function updateCarDetails(){
+    var cartype = document.getElementById("cartype").value;
+    var platenumber = document.getElementById("platenumber").value;
+    var x = document.getElementById("carPopup");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      if (platenumber == carplatenumber){
+        return alert("Enter the new Registration number");
+      }
+            if ((parseInt(platenumber.slice(0, 3)) == "Nan") && (parseInt(platenumber.slice(3, 6) == "Nan"))) {
+            return alert("Enter correct Car Plate number")
+            } else {
+              $.ajax({
+                  type: "POST",
+                  url: "api/profile.php",
+                  data: { "newCarType": cartype, "newPlateNumber":platenumber },
+                  success: function(response){
+                      getDetails()
+                      alert(response)
+                  }
+              })
+            x.style.display = "none";
+          }
+  }
 }

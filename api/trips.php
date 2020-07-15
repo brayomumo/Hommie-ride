@@ -19,15 +19,16 @@ function getTodayTripDetails($g_id){
     $tripDetails = Array();
     if(mysqli_num_rows($tr) > 0){
         $t_id = $trip["trip_id"];
-        $driver = $trip["driver_id"];
-        $todaysTripID = $t_id;
+        $driver = $trip["driver_id"]; 
         $lastDay = mysqli_query($con, "SELECT max(Tdate) as tdate  from trips where group_id='$g_id'")or die(mysqli_error($con));
         $lD = mysqli_fetch_assoc($lastDay)["tdate"];
         $lDate = Date("Y-M-d ", strtotime($lD));
         $ride = mysqli_query($con,"SELECT users.username,users.user_id, users.place_of_work FROM users LEFT JOIN ridealongs ON ridealongs.user_id = users.user_id WHERE ridealongs.trip_id = '$t_id'") or die(mysqli_error($con));            
         while ($row = mysqli_fetch_array($ride)) {
-            $obj = array_fill_keys(array("name","place","state","lastDate","driver"),"");
+            $obj = array_fill_keys(array("trip_id","name","place","state","lastDate","driver"),"");
+            $obj["trip_id"] = $t_id;
             $obj["name"] = $row["username"];
+            $obj["user_id"] = $row['user_id'];
             $obj["place"] = $row["place_of_work"];
             if($obj["user_id"] == $driver){
                 $obj["state"] = "Driver";
@@ -57,16 +58,19 @@ function coming()
     $oncoming = Array(); //store oncoming trip details as an array
     if ($gr) {
         $g_id = $row['group_id'];
-        $trips = mysqli_query($con, "SELECT trips.* FROM trips where group_id = '$g_id' and Trip_state ='pending'");
+        $today = date("Y-m-d H:m:s");
+        $trips = mysqli_query($con, "SELECT trips.* FROM trips where group_id = '$g_id' and Trip_state ='pending' AND Tdate > '$today'");
         if ($trips) {
             while ($trip = mysqli_fetch_array($trips)) {
+                // check if trip date is before today 
                 $driver_id = $trip["driver_id"];
-                $obj = array_fill_keys(array("day","Driver","cartype", "platenumber", "seatsAvailable"),"");
+                // $obj = array_fill_keys(array("date","day","Driver","cartype", "platenumber", "seatsAvailable"),"");
                 $result = mysqli_query($con, "SELECT username, cartype, car_plate_number from users where user_id = '$driver_id'");
                 $resultt = mysqli_fetch_assoc($result);
                 if ($result) {
-                    $obj = array_fill_keys(array("day","Driver","cartype", "platenumber", "seatsAvailable","Trip_state"),"");
+                    $obj = array_fill_keys(array("date","day","Driver","cartype", "platenumber", "seatsAvailable","Trip_state"),"");
                     $obj["day"] = $trip["day"];
+                    $obj["date"] = $trip["Tdate"]; 
                     $obj["Driver"] =  $resultt["username"];
                     $obj["cartype"] =$resultt["cartype"];
                     $obj["platenumber"] = $resultt["car_plate_number"] ;
@@ -74,7 +78,7 @@ function coming()
                     $obj["Trip_state"] = $trip["Trip_state"];
                     array_push($oncoming, $obj);
                 }
-            }
+        }
         }
     }
     return json_encode($oncoming);

@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <title>Welcome Home</title>
     <script src="js/jquery1.js"></script>
-    <link href="css/group.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- <link href="css/style1.css" rel="stylesheet" type="TEXT/CSS"> -->
+    <link href="css/group.css" rel="stylesheet"type="TEXT/CSS">
+   
 </head>
 
 <body>
@@ -43,7 +44,7 @@
                     <form id="post_form">
                         <div class="input-group">
                             <h3>Post</h3>
-                            <input type="text" id="post" placeholder="Type here ...." required><br>
+                            <input type="text" class="archive input-group" id="post" placeholder="Type here ...." required><br>
                             <input type="button" onclick="postnews()" value="Post">
                         </div>
                     </form>
@@ -65,44 +66,9 @@
         <?php
     } else {
         showGroups($_SESSION['homearea'], $_SESSION['workarea']);
-        echo "<h3> ----------- Or Create one -----------</h3>";
+        echo "<h3 style='text-align:center;' > ----------- Or Create one -----------</h3>";
         createGroup();
     }
-
-    // function showusers($group_id)
-    // {
-    //     require("db.php");
-    //     $groups = "SELECT users.username, users.first_name, users.last_name, users.workArea, users.place_of_work,users.phone_number FROM users LEFT OUTER JOIN user_group ON users.user_id = user_group.user_id WHERE user_group.group_id = '$group_id'";
-    //     $query = mysqli_query($con, $groups) or die(mysqli_error($con));
-    //     if ($query) {
-    //         if (mysqli_num_rows($query) > 0) {
-    //             echo '
-    //                 <div class="groups">
-    //                 <h2> &nbsp Ride Alongs :)</h2>
-    //                 <table style="width: 70%; text-align:center;">
-    //                     <tr>
-    //                         <th>username</th>
-    //                         <th>full name </th>
-    //                         <th>Place of work</th>
-    //                         <th>phone number</th>
-    //                     </tr>  ';
-    //             while ($row = mysqli_fetch_array($query)) {
-    //                 echo '<tr>              
-    //                 <td> ' . $row['username'] . '</td>
-    //                     <td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>
-    //                     <td>' . $row['place_of_work'] . '</td>
-    //                     <td>+254' . $row['phone_number'] . '</td>
-
-
-    //                    </tr>';
-    //             }
-    //             echo " </div>
-    //             </table><br>";
-    //             mysqli_free_result($query);
-    //         }
-    //     }
-    // }
-
     function createGroup()
     {
 
@@ -114,19 +80,14 @@
             $id = $_SESSION['id'];
             $groupname = stripslashes($_REQUEST['gname']);
             $groupname = mysqli_real_escape_string($con, $groupname);
-
             $firstaday = stripslashes($_REQUEST['firstday']);
             $firstaday = mysqli_real_escape_string($con, $firstaday);
-
             $lastday = stripslashes($_REQUEST['lastday']);
             $lastday = mysqli_real_escape_string($con, $lastday);
-
             $depttime = $_REQUEST['depttime'];
             $deptime = date("H:i:s", strtotime($depttime));
-
             $leavetime = $_REQUEST['leavetime'];
             $leavetime = date("H:i:s", strtotime($leavetime));
-
             $admin = $_SESSION["id"];
             //  $trn_date = date("Y-m-d H:i:s");
             $query = "INSERT INTO groups(group_name, workArea,neighbourhood, Admin, from_home, from_work, firstday, lastday) VALUES('$groupname', '$workarea', ' $homearea',' $admin ','$leavetime', '$deptime', '$firstaday', '$lastday')";
@@ -137,7 +98,8 @@
                     </div>";
                 $g_id = mysqli_query($con, "SELECT LAST_INSERT_ID()") or die(mysqli_error($con));
                 $id = mysqli_fetch_row($g_id);
-                if (mysqli_query($con, "INSERT INTO user_group(g_id, user_id) VALUES('$id','$admin'")) {
+                $r = mysqli_query($con, "INSERT INTO user_group(g_id, user_id) VALUES('$id','$admin'");
+                if ($r) {
                     echo " Group Created successfully";
                 }
                 // joinGroup($groupname);
@@ -151,47 +113,12 @@
 
             </div>
             <form name="createGroup" action="" method="post">
-                <div class="input-group">
-                    <label for=""> select time to leave for work: </label>
-                    <select class="time" name="depttime">
-                        <option value="">Select...</option>
-                        <option value="0400">4:00am</option>
-                        <option value="0500">5:00 am</option>
-                        <option value="0600">6:00am</option>
-                        <option value="0700">7:00am</option>
-                        <option value="0800">8:00am</option>
-                        <option value="0900">9:00am</option>
-                        <option value="1000">10:00a.m</option>
-                        <option value="1100">11:00a.m</option>
-                        <option value="1200">12:00 noon</option>
-                        <option value="1300">1:00p.m</option>
-                        <option value="1400">2:00p.m</option>
-                        <option value="1500">3:00p.m</option>
-                        <option value="1600">4:00p.m</option>
-
-                    </select>
-                    <label for=""> select time to leave for Home: </label>
-                    <select class="time" name="leavetime">
-                        <option value="">Select...</option>
-                        <option value="0400">4:00am</option>
-                        <option value="0500">5:00 am</option>
-                        <option value="0600">6:00am</option>
-                        <option value="0700">7:00am</option>
-                        <option value="0800">8:00am</option>
-                        <option value="0900">9:00am</option>
-                        <option value="1000">10:00a.m</option>
-                        <option value="1100">11:00a.m</option>
-                        <option value="1200">12:00 noon</option>
-                        <option value="1300">1:00p.m</option>
-                        <option value="1400">2:00p.m</option>
-                        <option value="1500">3:00p.m</option>
-                        <option value="1600">4:00p.m</option>
-
-                    </select><br>
-                    <label>Group name</label>
-                    <input type="text" name="gname" placeholder="Enter Group Name" required /><br>
-                    <label>First day of week</label><input type="text" name="firstday" placeholder="First day of work in a week" required>
-                    <label>Last day of week</label><input type="text" name="lastday" placeholder="Last day of work in a week" required><br>
+                <div class="input-group archive">
+                <span class="article"><label>Group name</label><input type="text" name="gname" placeholder="Enter Group Name" required /><br></span>
+                    <span class="article"><label for=""> select time to leave for work: </label><input type="time" name="depttime"></span>
+                    <span class="article"><label for="leavetime"> select time to leave for Home: </label><input type="time" name="leavetime"></span>    
+                    <span class="article"><label>First day of week</label><input type="text" name="firstday" placeholder="First day of work in a week" required></span>
+                    <span class="article"><label>Last day of week</label><input type="text" name="lastday" placeholder="Last day of work in a week" required><br></span>
 
 
                     <input type="submit" name="createGroup" value="Create Group">
@@ -206,7 +133,7 @@
     function  showGroups($homearea, $workarea)
     {
         require("db.php");
-        echo "<h3>Groups below are either from your work area or Home area<br>Please join one</h3>";
+        echo "<h3 style='text-align:center;'>Groups below are either from your work area or Home area<br>Please join one</h3>";
         $result = mysqli_query($con, "SELECT * FROM groups WHERE neighbourhood = '$homearea' or workArea = '$workarea'");
         if ($result) {
             echo "

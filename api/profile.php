@@ -65,6 +65,24 @@ function updateWork($workplace, $company){
         return "Error in updating";
     }
 }
+function updatePersonalDetails($username, $email,$phonenumber){
+    include('../db.php');
+    $userid = $_SESSION['id'];
+    $q =  "UPDATE users SET username= '$username', email='$email', phone_number='$phonenumber' WHERE user_id='$userid'";
+    $query = mysqli_query($con, $q) or die (mysqli_error($con));
+    if ($query){
+        return "Record update Successfully";
+    }
+}
+function updateCarDetails($newCarType, $newPlateNumber){
+    include('../db.php');
+    $userid = $_SESSION['id'];
+    $q =  "UPDATE users SET cartype= '$newCarType', car_plate_number='$newPlateNumber' WHERE user_id='$userid'";
+    $query = mysqli_query($con, $q) or die (mysqli_error($con));
+    if ($query){
+        return "Record update Successfully";
+    }
+}
 if(isset($_POST["user_id"])){
     echo (getDetails($_POST["user_id"]));
 }else if (isset($_POST["newHomeArea"])){
@@ -72,5 +90,10 @@ if(isset($_POST["user_id"])){
 }
 else if(isset($_POST['newWorkArea'])){
     print_r(updateWork($_POST['newWorkArea'], $_POST['newCompany']));
+}
+else if (isset($_POST['newUsername'])){
+    print_r(updatePersonalDetails($_POST['newUsername'], $_POST['newEmail'], $_POST['newPhoneNumber']));
+}else if(isset($_POST['newCarType'])){
+    print_r(updateCarDetails($_POST['newCarType'], $_POST['newPlateNumber']));
 }
 ?>

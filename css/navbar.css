@@ -102,22 +102,22 @@ button{
     }
   }
 
-  nav select {
+  .center select,nav select {
       display:none;  
     }
   
   @media screen and (max-width: 44em) {
-    nav
+    .center, nav
       ul {
         display: none;
       }
   
-     nav select {
+     .center select,nav select {
         display: block;
         width: 100%;
       }
   
-      nav:after {
+      .center:after, nav:after {
         position: absolute;
         content: "Menu";
         right: 0;

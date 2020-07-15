@@ -6,7 +6,6 @@ $(document).ready(function () {
 })
 // joining a trip
 function joinTrip(g_id) {
-
     $.ajax({
         method: "POST",
         url: "api/trips.php",
@@ -14,7 +13,7 @@ function joinTrip(g_id) {
             "joinID": g_id
         },
         success: function (response) {
-            alert("joining")
+            
             $("#" + g_id).hide()
             getTodaytripdetails();
 
@@ -47,7 +46,6 @@ function setDept(){
 // getting today's trip details
 function getTodaytripdetails() {
     var g_id = document.getElementById("tripDetails").getAttribute("value");
-    console.log(g_id)
     var driver_id = 0
     var isLastDate = false;
     var CurrentUser_id = $(".row").attr("id")
@@ -56,11 +54,11 @@ function getTodaytripdetails() {
         url: "api/trips.php",
         data: { "todayID": g_id },
     }).done(function (data) {
-        /*get the date from backend
-        check if the date is the same as today's
-        if the same: Allocate drivers =>getUsers(day,month, year)
-            else:
-            ignore */
+        // console.log(data)
+            if (data === "No Trip Today"){
+                $(".joinbtn").hide()
+                $("#tripDetails").html("<h2>No Trip Today</h2>");
+            }else{
         var result = $.parseJSON(data);
         // console.log(result)
         var string = '<table style="width: 50%; text-align:center";> <tr>\
@@ -69,6 +67,9 @@ function getTodaytripdetails() {
                                     <th>status</th>\
                                 </tr>';
         $.each(result, function (key, value) {
+            if(value["user_id"] == CurrentUser_id){
+                $(".joinbtn").hide()
+            }
             driver_id = value["driver"]
             isLastDate = value["lastDate"]
             string += "<tr> <td>" + value['name'] + "</td> \
@@ -76,16 +77,20 @@ function getTodaytripdetails() {
                         <td>'+ value['state'] + "</td> </tr>";
         });
         string += '</table>';
+        if(driver_id == CurrentUser_id){
+            setDept();
+        }
+        // setting next phase drivers
+        if (isLastDate){
+            // if last day, save drivers for next month
+            var today = new Date();
+            getUsers(today.getDate(), today.getMonth()+1, today.getFullYear());
+        }
         $("#tripDetails").html(string);
+    }
     });
-    if(driver_id == CurrentUser_id){
-        setDept();
-    }
-    if (isLastDate){
-        // if last day, save drivers for next month
-        var today = new Date();
-        getUsers(today.getDate(), today.getMonth()+1, today.getFullYear());
-    }
+    // check for today's driver 
+   
 }
 function getOnComingTrips() {
     $.ajax({
@@ -93,11 +98,17 @@ function getOnComingTrips() {
         url: "api/trips.php",
         data: { "oncoming": true },
     }).done(function (data) {
+        // console.log(data)
         var results = $.parseJSON(data);
-        console.log(data)
-        var string = "<table style='width: 50%; text-align:center;'> <tr><th>Day</th><th>Driver </th><th>Cartype</th><th>Car Plate Number</th><th>Seats Available</th></tr>"
+       
+        if(results.length  == 0){
+            var today = new Date();
+            console.log(today.getMonth()+1 )
+            getUsers(today.getDate(), today.getMonth()+1, today.getFullYear());
+        }else{
+        var string = "<table style='width: 50%; text-align:center;'> <tr><th>Date</th><th>Day</th><th>Driver </th><th>Cartype</th><th>Car Plate Number</th><th>Seats Available</th></tr>"
         $.each(results, function (key, value) {
-            string += "<tr><td>" + value['day'] + "</td>\
+            string += "<tr> <td>"+ value['date']+ "</td><td>" + value['day'] + "</td>\
             <td>" + value['Driver'] + "</td>\
             <td>" + value['cartype'] + "</td>\
             <td>" + value['platenumber'] + "</td>"
@@ -106,8 +117,10 @@ function getOnComingTrips() {
             }
             
         });
+    
         string += "</table>";
         $('.oncoming').html(string)
+    }
     })
 }
 
@@ -145,32 +158,14 @@ function getUsers(day,month, year) {
     });
 }
 
-function getday(n) {
-    var day
-    if (n == 0) {
-        day = "Sunday";
-    } else if (n == 1) {
-        day = "Monday";
-    } else if (n == 2) {
-        day = "Tuesday";
-    } else if (n == 3) {
-        day = "Wednesday";
-    } else if (n == 4) {
-        day = "Thursday";
-    } else if (n == 5) {
-        day = "Friday";
-    } else if (n == 6) {
-        day = "Saturday";
-    }
-    return day
-}
+
 // getting work dates in a month
 function getworkdays(users, date, month, year) {
-    var date = new Date(year, month - 1, date + 1);
+    var date = new Date(year, month-1, date);
     var days = [];
+    var workdays = []
     var count = 0
     while (count < users.length) {
-
         var k = date.getDay();
         if (k == 0 || k == 6) {
             date.setDate(date.getDate() + 1);
@@ -180,17 +175,15 @@ function getworkdays(users, date, month, year) {
             date.setDate(date.getDate() + 1);
             count += 1
         }
-
     }
-    var workdays = []
     for (var i = 0; i < days.length; i++) {
         var obj = {}
-        var date = days[i].getFullYear() + "/" + days[i].getMonth() + "/" + days[i].getDate()
-        obj["day"] = getday(days[i].getDay())
+        let month = days[i].getMonth() +1
+        var date = days[i].getFullYear() + "/" +month + "/" + days[i].getDate()
+        obj["day"] = days[i].toDateString().slice(0,3)
         obj["date"] = date
         workdays.push(obj)
     }
-
     return workdays;
 }
 

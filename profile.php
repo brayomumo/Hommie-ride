@@ -19,108 +19,85 @@
     // print_r($_SESSION);
     include("db.php");
     ?>
-    <a style="text-align: right !important;" href="#openPopup">Update Profile</a>
-    <a style="text-align: right !important;" href="#workPopup">Update work Area</a>
-    <a style="text-align: right !important;" href="#homePopup">Update Home Area</a>
-    <div id="openPopup" class="myPopup">
-        <div>
-            <a href="#close" title="Close" class="close">X</a>
-            <h1>Update Profile</h1>
-            <div class="updateform">
-                <form id="updateProfile">
-                    <div class="archive">
-                        <div class="article" style=" background:none !important;"><br>
-                            <div class="input-group">
-                                <label>Username</label>
-                                <input type="text" id="username" placeholder="Username" value="" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>First Name</label>
-                                <input type="text" id="firstname" placeholder="first name" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Last Name</label>
-                                <input type="text" id="lastname" placeholder="last name" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Phone number</label>
-                                <input type="tel" id="phonenumber" placeholder="phone number" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Email</label>
-                                <input type="email" id="email" placeholder="Email" required />
-                            </div>
-                            <br>
-                            <div class="input-group">
-                                <label>Password</label>
-                                <input type="password" id="password" placeholder="Password" required />
-                            </div>
-                        </div>
-                        <div class="article" style=" background:none !important;"> <br>
-                            <div class="input-group">
-                                <label>Company/Institution</label>
-                                <input type="text" id="placeofwork" placeholder="company/institution" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Work Area</label>
-                                <input type="text" id="workarea" placeholder="work Area" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Home Area</label>
-                                <input type="text" id="homearea" placeholder="home Area" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Licence Number</label>
-                                <input type="text" id="licencenumber" placeholder="Licence Number" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Car type</label>
-                                <input type="text" id="cartype" placeholder="car Type" required />
-                            </div><br>
-                            <div class="input-group">
-                                <label>Car plate number</label>
-                                <input type="text" id="carplatenumber" placeholder="car plate Number" required />
-                            </div>
-                            <div class="input-group">
-                                <input type="button" name="update" onclick="updateProfile()" value="Update Details">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+    
+    <div class="archive">
+        <!-- updating diffetent parts -->
+        <!-- profile details -->
+        <section id="personalPopup" class="myPopup article" style="margin: 10% auto">
+            <div class="input-group">
+                <a href="#close" title="Close" class="close">X</a>
+                <label>Enter new Username: </label>
+                <input type="text" id="username" value="<?php echo ($_SESSION['username']); ?>" required />
+                <label>Enter new Email: </label>
+                <input type="email" id="email" value="<?php echo ($_SESSION['placeofwork']); ?>" required />
+                <label>Enter new Phone Number: </label>
+                <input type="text" id="phoneNumber" value="<?php echo ($_SESSION['phonenumber']); ?>" required />
+
+                <input type="button" onclick="updatePersonalDetails()" class="" value="Update">
+            </div><br>
+        </section>
+        <!-- Car details -->
+        <section id="carPopup" class="myPopup article" style="margin: 10% 50%">
+            <div class="input-group">
+                <a href="#close" title="Close" class="close">X</a>
+                <label>Enter new Car type: </label>
+                <input type="text" id="cartype" value="<?php echo ($_SESSION['cartype']); ?>" required />
+                <label>Enter new Car Plate Number: </label>
+                <input type="text" id="platenumber" value="<?php echo ($_SESSION['carplatenumber']); ?>" required />
+                <input type="button" onclick="updateCarDetails()" class="" value="Update">
+            </div><br>
+        </section>
+        <!-- Work details -->
+        <section id="workPopup" class="myPopup article" style="margin: 25% auto">
+            <div class="input-group">
+                <a href="#close" title="Close" class="close">X</a>
+                <label>Enter new work place: </label>
+                <input type="text" id="workplace1" placeholder="work place " required />
+                <label>Enter company/institution name: </label>
+                <input type="text" id="company1" value="<?php echo ($_SESSION['placeofwork']); ?>" required />
+                <input type="button" onclick="updatework()" class="" value="Update">
+            </div><br>
+        </section>
+        <!-- Home Area -->
+        <section id="homePopup" class="myPopup article" style="margin: 25% 50%">
+            <div class="input-group">
+                <a href="#close" title="Close" class="close">X</a>
+                <label>Enter new home Area: </label>
+                <input type="text" id="homearea1" placeholder="home area" required />
+                <input type="button" onclick="updateHome()" class="" value="Update">
+            </div><br>
+        </section>
     </div>
-    <section id="workPopup" class="myPopup " style=" margin: 11% auto;">
-        <div class="input-group">
-        <a href="#close" title="Close" class="close">X</a>
-            <label>Enter new work place: </label>
-            <input type="text" id="workplace1" placeholder="work place " required />
-            <label>Enter company/institution name: </label>
-            <input type="text" id="company1" value="<?php echo($_SESSION['placeofwork']); ?>" required />
-            <input type="button"  onclick="updatework()"  class="" value="Update"> 
-        </div><br>
-    </section>
-    <section id="homePopup" class="myPopup" style=" margin: 20% auto;">
-        <div class="input-group">
-        <a href="#close" title="Close" class="close">X</a>
-            <label>Enter new home Area: </label>
-            <input type="text" id="homearea1" placeholder="home area" required />
-            <input type="button"  onclick="updateHome()"  class="" value="Update"> 
-        </div><br>
-    </section>
+    <!-- displaying values  -->
     <div class="profile">
 
         <div id="person"> </div>
         <header class="user_id" id="<?php echo ($_SESSION["id"]); ?>"></header>
-        <header class='center'> Personal Details</header>
+        <header class=''> Personal Details</header>
         <div id="personal"> </div>
-        <header class='center'> Work details</header>
+        <header class=''> Work details</header>
         <div id="work"> </div>
-        <header class='center'> Car details </header>
+        <header class=''> Car details </header>
         <div id="car"> </div>
 
     </div>
 
+    <div class="center ">
+        <section class="archive">
+            <a class="article cent"  href="#personalPopup">Update Personal Details</a>
+            <a class="article cent"  href="#workPopup">Update work Area</a>
+            <a class="article cent"  href="#homePopup">Update Home Area</a>
+            <a class="article cent" href="#carPopup">Update Car Details</a>
+        </section>
+
+        <!-- on smaller screens -->
+        <select onchange="if(this.value)window.location.href = this.value;">
+            <option value="#personalPopup">Update Personal Details</option>
+            <option value="#workPopup">Update Work Details</option>
+            <option value="#homePopup">Update Home Area</option>
+            <option value="#carPopup">Update Car Details</option>
+        </select>
+    </div>
 
 
     <script src="js/profile.js"></script>

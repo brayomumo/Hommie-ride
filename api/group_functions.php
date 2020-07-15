@@ -21,7 +21,6 @@ function joinGroup($id)
             }
         } else {
             echo " Group already Full";
-            createGroup();
         }
     }
 }

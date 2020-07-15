@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 .column {
     float: left;
     width: 50%;
@@ -5,7 +6,9 @@
 .joinTrip {
     margin-left: 50%
 }
-
+.hide{
+    display: none
+}
 
 .container {
     padding: 2px 16px;
@@ -22,6 +25,15 @@ td{
 }
 .groupDetails{
     padding: 35px;
+}
+.msg{
+    padding: 1em;
+    background: #dae1e6;
+    width: 70%;
+    margin-left: 30px;
+    box-shadow:
+      0 5px 10px rgba(0, 0, 0, 0.1),
+      0 20px 20px rgba(0, 0, 0, 0.05);
 }
 .archive {
     display: grid;
@@ -61,6 +73,21 @@ td{
     color: black;
     text-align: center; 
     font-size:5vw;
+    font-family: 'Fondamento', cursive;
+ }
+ .input-group {
+	margin: 10px 0px 10px 0px;
+}
+ .image p{
+    position: absolute; 
+    top: 0; 
+    padding-top:20.5%;  
+    left: 0; 
+    width: 100%;
+    color: black;
+    text-align: center;  
+    font-size: 30px;
+    font-family: 'Fondamento', cursive;
  }
  #about{
 text-align: center;

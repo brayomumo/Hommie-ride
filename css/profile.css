@@ -12,7 +12,7 @@ header{
 
 .myPopup{
   position: absolute;
-  margin-left: 100px;
+  /* margin-left: 100px; */
   opacity: 0;
   -webkit-transition: opacity 400ms ease-in;
   -moz-transition: opacity 400ms ease-in;
@@ -22,9 +22,8 @@ header{
   opacity: 1;
 }
 .myPopup > div{
-  width: 700px;
+  width: 500px;
   position: relative;
- y
   padding: 5px 20px 13px 20px;
   border-radius: 10px;
   background: #71a6fc;
@@ -44,8 +43,8 @@ header{
   top: -10px;
   width: 24px;
   text-decoration: none;
-  -webkit-border-radius: 12px;
-  -moz-box-shadow: 1px, 1px, 3px, #000;
+  border-radius: 12px;
+ box-shadow: 1px, 1px, 3px, #000;
 }
 .close:hover{
   background: #00d9ff;
@@ -62,6 +61,11 @@ header{
 	/* border-radius: 5px; */
 	/* border: 1px solid gray; */
 } 
-.center{
+.cent  {
+  background-color: #D6EFFF;
+  text-align: center;
+}
+.center >section a{
+  text-decoration: none;
   text-align: center;
 }

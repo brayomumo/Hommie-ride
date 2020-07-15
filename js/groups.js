@@ -63,7 +63,7 @@ function join(g_id){
         var allposts = "";        
         /* from result create a string of data and append to the div */
         $.each(result, function (key, value) {
-          allposts += "<div class='article'><h4>" + value['username'] + "</h4> <h6>" + value['post'] + "</h6> <p style='text-align:right;'>"+ value['whenPosted']+"</p> </div>"
+          allposts += "<div class='msg'><h4>" + value['username'] + "</h4> <h6>" + value['post'] + "</h6> <p style='text-align:right;'>"+ value['whenPosted']+"</p> </div> <br>"
         });
         $(".transition").html(allposts);
         var objDiv = document.getElementsByClassName("news");
